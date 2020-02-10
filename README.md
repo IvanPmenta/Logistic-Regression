@@ -11,39 +11,39 @@ dataset = pd.read_csv('Social_Network_Ads.csv')
 X = dataset.iloc[:,[2,3]].values
 Y= dataset.iloc[:, 4].values
 
-"""# Enconding categorical data
+#### Enconding categorical data (When is request) 
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 labelencoder_X = LabelEncoder()
 X[:, 3] = labelencoder_X.fit_transform(X[:, 3])
 onehotencoder = OneHotEncoder(categorical_features = [3])
 X = onehotencoder.fit_transform(X).toarray()
 
-# Avoiding the Dummy Variabel Trap
-X = X[:, 1:]"""
+#### Avoiding the Dummy Variabel Trap (When is request)
+X = X[:, 1:]
 
-# Splitting the dataset into the Training set and Test set
+## Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.25, random_state = 0)
 
-# Feature Scaling
+## Feature Scaling
 from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
-# Fitting Logistc Regression to the Training set
+## Fitting Logistc Regression to the Training set
 from sklearn.linear_model import LogisticRegression
 classifier = LogisticRegression(random_state = 0)
 classifier.fit(X_train,Y_train)
 
-# Predicting the Test set results
+## Predicting the Test set results
 y_pred = classifier.predict(X_test)
     
-# Making the Confusion Matrix
+## Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(Y_test, y_pred)
 
-# Visualising the Training set results
+## Visualising the Training set results
 from matplotlib.colors import ListedColormap
 X_set, Y_set = X_train, Y_train
 X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
@@ -61,7 +61,7 @@ plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
 
-# Visualising the Test set results
+## Visualising the Test set results
 from matplotlib.colors import ListedColormap
 X_set, Y_set = X_test, Y_test
 X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
